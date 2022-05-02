@@ -1,0 +1,13 @@
+<div class="col-lg-4 col-md-6 mb-4" >
+	<div class="card h-100" style="background-color: grey;">
+<%= link_to product do%>
+  		<div class="card-body" style="color: black; font: italic small-caps bold 20px/2 cursive; text-decoration: underline; text-decoration-color: grey;">
+  		<img src="<%= product.image %>" class="card-img-top" alt="...">
+    	<h4><%= product.title%></h4>
+    	<p class="card-text text-truncate"><%= product.description%></p>
+    	<p class="badge bg-light text-dark" style="font-size:20px;">
+    		<%= number_to_currency(product.price, unit: "UAH", separator: ",", delimiter: " ", format: "%n %u") %></p>	    	
+    	</div>
+<% end%>
+	</div>
+</div>

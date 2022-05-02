@@ -1,0 +1,38 @@
+<script>
+    $( document ).ready(function() {
+        $("#<%= params[:sort] %>").addClass("active");
+        <% if @category.present? %>
+        $("#<%= @category.title %>").addClass("active");
+        <% end %>
+    })
+</script>
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>LaMode</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+  </head>
+
+  <body style="background-color: #212429;">
+    
+ <%= render 'layouts/header'%>
+
+            <%= yield %>
+         
+
+
+  </body>
+</html>
+

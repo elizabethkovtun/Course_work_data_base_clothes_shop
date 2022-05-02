@@ -1,0 +1,110 @@
+<main class="container pt-5" style="color: black; font: italic small-caps bold 20px/2 cursive;">
+        <div class="row pt-5">
+          <div class="col-sm-3 col-12">
+                    <nav class="nav flex-column">
+
+                      <% Category.roots.each do |category| %>
+                          <%= active_link_to category.title, category_path(category), class: "list-group-item list-group-item-action list-group-item-dark"%>
+                            <% if category.has_children? %>
+                							<% Category.children_of(category).each do |sub_category| %>
+                							<i><%= active_link_to sub_category.title, category_path(sub_category), class: 'list-group-item list-group-item-action list-group-item-warning'%></i>
+                						<% end %>
+            					<% end %>
+                      <% end %>
+           <!--<a class="nav-link active" aria-current="page" href="#">Active</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+
+
+          <div class="input-group mb-3">
+      
+
+            <div class="filter-list" style="color: white; font: italic small-caps bold 20px/2 cursive; ">
+      <d style="font-size: 35px;">Sort by price:</d></br>
+      <%= link_to ("Low to high"), products_path(sort: 'lowPrice'), class:'btn-custom-light', style: 'color: white; text-decoration: underline; text-decoration-color: grey;'  %>
+      &nbsp;<i>or</i>&nbsp;
+      <%= link_to ("High to low"), products_path(sort: 'highPrice'), class:'btn-custom-light', style: 'color: white;' %>
+    </div>
+    <div class="filter-list">
+      <d style="color: white; font-size: 35px;">Sort by name:</d></br>
+      <%= link_to ("A-Z"), products_path(sort: 'alphabetAsc'), class:'btn-custom-light', style: 'color: white; font-size: 30px;'%>
+      &nbsp;&nbsp;<i style="color: white;">or</i>&nbsp;&nbsp;
+      <%= link_to ("Z-A"), products_path(sort: 'alphabetDesc'), class:'btn-custom-light', style: 'color: white; font-size: 30px;' %>
+    </div>
+    <div class="filter-list" style="color: black; font: italic small-caps bold 20px/2 cursive; text-decoration: underline; text-decoration-color: grey;">
+      <%= form_with url: products_path, method: :get, local: true do |form| %>
+        <%= form.number_field :min, class: "form-input-number",
+                            placeholder: "min price", value:"0"%>
+        <%= form.number_field :max, class: "form-input-number",
+                            placeholder: "max price" %>
+                            <p></p>
+        <%= submit_tag "Filter", class: 'btn btn-outline-light mp-4', style: 'font-size: 20px; text-align: center' do %>
+          <i class="fa fa-search" aria-hidden="true"></i>
+        <% end %>
+      <% end %>
+    </div>
+</div> 
+
+          <div class="price">
+          </nav>
+          </div>
+          <div class="col-sm-9 col-12">
+            <div>
+            </div>
+
+<div class="row db-6">
+<% @category.products.each do |product| %>
+<div class="col-lg-4 col-md-6 mb-4" >
+  <div class="card h-100" style="background-color: grey;">
+<%= link_to product do%>
+      <div class="card-body" style="color: black; font: italic small-caps bold 20px/2 cursive; text-decoration: underline; text-decoration-color: grey;">
+      <img src="<%= product.image %>" class="card-img-top" alt="...">
+      <h4><%= product.title%></h4>
+      <p class="card-text text-truncate"><%= product.description%></p>
+      <p class="badge bg-light text-dark" style="font-size:20px;">
+        <%= number_to_currency(product.price, unit: "UAH", separator: ",", delimiter: " ", format: "%n %u") %></p>        
+      </div>
+<% end%>
+  </div>
+
+</div>
+
+<% end %>
+
+<% if @category.has_children? %>
+     			<% Category.children_of(@category).ids.each do |id| %>
+     				<% Category.find(id).products.each do |product| %>
+     					<div class="col-lg-4 col-md-6 mb-4">
+     						<div class="card h-100">
+     							<div class="card-body">
+     								<img src="<%= product.image %>" class="card-img-top" alt="...">
+     							</div>
+     							<div class="card-footer">
+     								<h5 class="card-title"><%= product.title %> </h5>
+     								<p class="card-text text-truncate"><%= product.description %></p>
+     								<p class="badge bg-light text-dark"><%= number_to_currency(product.price, unit: "$", separator: ",", delimiter: " ", format: "%n %u") %></p>
+     								<% if !current_user.nil?%>
+     									<%= link_to 'Додати до кошика', product_order_items_path(product), method: :post, class: "btn btn-default bg-dark" %>
+     									<%end%>
+     								</div>
+     							</div>
+     						</div>
+     				<% end %>
+     			<% end %>
+     		<% end %>
+     	</div>
+     </div>
+</div>
+</main>
+
+
+<div class="digg_pagination" style="text-align: center;">
+    <%= will_paginate @products, :container => false %>
+</div>
+
+ </div>
+        </div>
+
+      </main><!-- /.container -->
+

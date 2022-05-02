@@ -1,0 +1,91 @@
+<main class="container pt-5">
+        <div class="row pt-5">
+          <div class="col-sm-3 col-12">
+                    <nav class="nav flex-column" style="color: black; font: italic small-caps bold 20px/2 cursive;">
+
+                      <% Category.roots.each do |category| %>
+                          <%= active_link_to category.title, category_path(category), class: "list-group-item list-group-item-action list-group-item-dark"%>
+                      <% end %>
+           <!--<a class="nav-link active" aria-current="page" href="#">Active</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+
+
+          <div class="input-group mb-3">
+      
+
+            <div class="filter-list" style="color: white; font: italic small-caps bold 20px/2 cursive; ">
+      <d style="font-size: 35px;">Sort by price:</d></br>
+      <%= link_to ("Low to high"), products_path(sort: 'lowPrice'), class:'btn-custom-light', style: 'color: white; text-decoration: underline; text-decoration-color: grey;'  %>
+      &nbsp;<i>or</i>&nbsp;
+      <%= link_to ("High to low"), products_path(sort: 'highPrice'), class:'btn-custom-light', style: 'color: white;' %>
+    </div>
+    <div class="filter-list">
+      <d style="color: white; font-size: 35px;">Sort by name:</d></br>
+      <%= link_to ("A-Z"), products_path(sort: 'alphabetAsc'), class:'btn-custom-light', style: 'color: white; font-size: 30px;'%>
+      &nbsp;&nbsp;<i style="color: white;">or</i>&nbsp;&nbsp;
+      <%= link_to ("Z-A"), products_path(sort: 'alphabetDesc'), class:'btn-custom-light', style: 'color: white; font-size: 30px;' %>
+    </div>
+    <div class="filter-list" style="color: black; font: italic small-caps bold 20px/2 cursive; text-decoration: underline; text-decoration-color: grey;">
+      <%= form_with url: products_path, method: :get, local: true do |form| %>
+        <%= form.number_field :min, class: "form-input-number",
+                            placeholder: "min price", value:"0"%>
+        <%= form.number_field :max, class: "form-input-number",
+                            placeholder: "max price" %>
+                            <p></p>
+        <%= submit_tag "Filter", class: 'btn btn-outline-light mp-4', style: 'font-size: 20px; text-align: center' do %>
+          <i class="fa fa-search" aria-hidden="true"></i>
+        <% end %>
+      <% end %>
+    </div>
+</div> 
+
+          <div class="price">
+          </nav>
+          </div>
+          <div class="col-sm-9 col-12">
+            <div>
+            </div>
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                  <img src="https://elements-video-cover-images-0.imgix.net/files/303638093/012_Dynamic_Glitch_Promo_Preview.jpg?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=76bce27d44e8e08f5cf689c9b678a8c9" class="d-block w-100">
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img src="https://i.ytimg.com/vi/9-Gu5c-gqRg/maxresdefault.jpg" class="d-block w-100">
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img src="https://www.thefactshop.com/wp-content/uploads/2018/01/fashion-facts.jpg" class="d-block w-100">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </a>
+            </div> <br/>
+<div class="row db-6">
+  <%= render @products %>
+</div>
+
+<div class="digg_pagination" style="text-align: center; color: white; font: italic small-caps bold 30px/2 cursive; text-decoration: underline; text-decoration-color: grey;">
+    <%= will_paginate @products, :container => false %>
+</div>
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+ </div>
+        </div>
+
+      </main><!-- /.container -->

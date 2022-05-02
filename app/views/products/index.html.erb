@@ -1,0 +1,72 @@
+<main class="container pt-5" >
+        <div class="row pt-5" >
+          <div class="col-sm-4 col-12" >
+                    <nav class="nav flex-column" >
+
+                      <% Category.roots.each do |category| %>
+                          <%= active_link_to category.title, category_path(category), class: "list-group-item list-group-item-action list-group-item-dark"%>
+                            <% if category.has_children? %>
+                							<% Category.children_of(category).each do |sub_category| %>
+                							<i><%= active_link_to sub_category.title, category_path(sub_category), class: 'list-group-item list-group-item-action list-group-item-warning'%></i>
+                						<% end %>
+            					<% end %>
+                      <% end %>
+           <!--<a class="nav-link active" aria-current="page" href="#">Active</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+
+
+          <div class="input-group mb-3">
+      
+
+            <div class="filter-list">
+      Sort by price:
+      <%= link_to ("From low to high"), products_path(sort: 'lowPrice'), class:'btn-custom-light' %>
+      <i>or</i>
+      <%= link_to ("From high to low"), products_path(sort: 'highPrice'), class:'btn-custom-light' %>
+    </div>
+    <div class="filter-list">
+      Sort by name:
+      <%= link_to ("A-Z"), products_path(sort: 'alphabetAsc'), class:'btn-custom-light' %>
+      <i>or</i>
+      <%= link_to ("Z-A"), products_path(sort: 'alphabetDesc'), class:'btn-custom-light' %>
+    </div>
+    <div class="filter-list">
+      <%= form_with url: products_path, method: :get, local: true do |form| %>
+        <%= form.number_field :min, class: "form-input-number",
+                            placeholder: "min price", value:"0"%>
+        <%= form.number_field :max, class: "form-input-number",
+                            placeholder: "max price" %>
+        <%= submit_tag "Filter", class: 'btn btn-outline-dark' do %>
+          <i class="fa fa-search" aria-hidden="true"></i>
+        <% end %>
+      <% end %>
+    </div>
+</div> 
+
+          <div class="price">
+          </nav>
+          </div>
+          <div class="col-sm-9 col-12">
+            <div>
+            </div>
+
+
+
+
+
+<div class="row">
+	<%= render @products %>
+</div>
+
+
+<div class="digg_pagination" style="text-align: center;">
+    <%= will_paginate @products, :container => false %>
+</div>
+
+
+ </div>
+        </div>
+
+      </main><!-- /.container -->

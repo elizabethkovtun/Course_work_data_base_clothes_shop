@@ -1,0 +1,38 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<h2 style="text-align: center;">Comments</h2>
+<div class="comment">
+  <% @product.comments.each do |comment| %>
+  <div class="col-lg-10">
+    <div class="card shadow mb-5">
+      <div class="card-header">
+      	<h6><%= comment.user.email %></h6>
+        <% comment.rating.times do %>
+          <i class="fa fa-star" style="color: #ffde00"></i>
+        <% end %>
+        <% blank_stars(comment.rating).times do %>
+          <i class="fa fa-star" aria-hidden="true" style="color: #e1e1e1"></i>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%= comment.body %></p>
+        <div style="text-align: center;">
+        	 <% if current_user.present? %>
+	        	<% if current_user.email == comment.user.email %>
+	        		<%= link_to ("Редагувати"), edit_comment_path(comment), class: "btn btn-outline-dark" %>
+	            	<%= link_to ("Видалити"), comment_path(comment), method: :delete, class: "btn btn-outline-dark",
+	                              data: {confirm: 'Confirm delete your comment?'} %>
+	             <% end %>
+            <% end %>
+         </div>
+      </div>
+
+        <div class="row">
+
+        </div>
+    </div>
+  </div>
+<% end %>
+
+  </div>
+

@@ -1,0 +1,44 @@
+<main class="container pt-5" style="color: black; font: italic small-caps bold 20px/2 cursive;">
+        <div class="row pt-5">
+          <div class="col-sm-3 col-12">
+                    <nav class="nav flex-column">
+
+
+<div class="price">
+          </nav>
+          </div>
+          <div class="col-sm-12 col-12">
+            <div>
+            </div>
+
+<p class="invisible"><%= total_price = 0 %></p>
+<div class="col-12">
+  <div class="row">
+    <% @items.each do |item| %>
+    <% total_price += item.product.price * item.quantity%>
+        <div class="col-lg-5 col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body",  style="background-color: grey;">
+              <img src="<%= item.product.image %>" class="card-img-top" alt="...">
+            </div>
+            <div class="card-footer" style="background-color: grey;">
+              
+              <h5 class="card-title" style="font-size: 30px;"><%= item.product.title %> </h5>
+              <p class="card-text text-truncate"><%= item.product.description %></p>
+              <p class="badge bg-light text-dark" style="font-size:30px;><%= number_to_currency(item.product.price, unit: "UAH", separator: ",", delimiter: " ", format: "%n %u") %></p>
+              <p class="cart-text" style="font-size: 30px;"> Quantity: <%= item.quantity %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <%= link_to '↑', add_quantity_product_order_item_path(item.product, item),method: :get, class: "btn btn-default bg-light", style: "font-size: 30px;"%>&nbsp;&nbsp;&nbsp;
+              <%= link_to '↓', remove_quantity_product_order_item_path(item.product, item), class: "btn btn-default bg-light", style: "font-size: 30px;", method: :get %>  
+              <p></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= link_to 'Remove from cart', product_order_item_path(item.product, item), class: "btn btn-default bg-light", style: "font-size: 30px;", method: :delete%>
+            </div>
+        </div>
+      </div>
+<% end%>
+<div class="text-center"><%= link_to "Confirm", complete_order_path, class: 'btn btn-outline-light', style: 'font-size: 30px;' %></div>
+<h3 style="color: white; font-size: 60px;">Total price: <%= total_price %> </h3>
+ </div>
+        </div>
+
+      </main><!-- /.container -->

@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="color: white; font: italic small-caps bold 20px/2 cursive; background-color: #212429;">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="color: white; font: italic small-caps bold 30px/2 cursive;" href="/">LaMode</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      
+      <ul class="container navbar-nav me-auto mb-0 mb-md-0">
+        <li class="nav-item active">
+          <a class="nav-link" aria-current="page" href="/">Головна</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" aria-current="page" href="/">Про нас</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Контакти</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="#">+38-(097)-111-11-11</a></li>
+            <li><a class="dropdown-item" href="#">+38-(066)-111-11-11</a></li>
+            <li><a class="dropdown-item" href="#">+38-(050)-111-11-11</a></li>
+          </ul>
+        </li>
+      <% if current_user %>
+              <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link'%>
+              <% else %>
+              <%= link_to 'Sign in',new_user_session_path,class: 'nav-link'%>
+              <% end %>
+
+      </ul>
+      <%if current_user %>
+      <%= link_to 'Кошик',order_path(current_order),class: 'btn btn-outline-light'%>&nbsp;&nbsp;
+      <% end %>
+            <%= form_tag products_path, method: :get, class: "form-inline my-2 my-lg-0 search_form", id: "search-form" do %>
+              <%= text_field_tag(
+                  :search,
+                  params[:search],
+                  placeholder: "Search"
+              ) %>&nbsp;
+              <%= submit_tag "Search", class: 'btn btn-outline-light' %>
+            <% end %>
+    </div>
+  </div>
+</nav>

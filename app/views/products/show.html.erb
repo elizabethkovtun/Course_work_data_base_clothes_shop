@@ -1,0 +1,65 @@
+  </br>
+</br>
+  <div class="container">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <div class="pt-5">
+<section class="mb-5">
+
+  <div class="row" style="color: white; font: italic small-caps bold 20px/2 cursive;">
+    <div class="col-md-6 mb-4 mb-md-0">
+
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+
+        <div class="row product-gallery mx-1">
+
+          <div class="col-12 mb-0">
+  
+
+                <div class="pt-5">
+                <img src="<%= @product.image %>"
+                  class="img-fluid z-depth-1">
+                  </div>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6 lefter">
+      <div class="pt-5">
+      <h5><%= @product.title %></h5>
+      <p class="mb-2 text-muted text-uppercase small"><%= @product.category.title %></p>
+      <p class="text-muted"> Rating: <%= @product.rating %> </p>
+
+  </div>
+      <p class="badge bg-light text-dark"><%= number_to_currency(@product.price, unit: "UAH", separator: ",", delimiter: " ", format: "%n %u") %></p>
+      <p class="pt-1"><%= @product.description %></p>
+      <div class="table-responsive">
+        <table class="table table-sm table-borderless mb-0">
+
+        </table>
+      </div>
+      <hr>
+      <% if current_user.present? %>
+    <%= link_to 'Додати до кошика', product_order_items_path(@product), method: :post, class: "btn btn-outline-light"%>
+    <% else %>
+    <p><%= link_to 'Увійти в систему', new_user_session_path %> для того щаб додати цей продукт до кошика </p>
+    <% end %>
+    <% if allowed_to_comment(@product) %>
+      <%= link_to 'Додати коментар', new_comment_path(user_id: current_user, product_id: @product), method: :get, class: "btn btn-outline-light"%>
+      <% end %>
+
+
+    </div>
+  </div>
+
+</section>
+<!--Section: Block Content-->
+</div>
+  <div class="col-lg-12 sm-12">
+   <%= render 'comments/comment_show' %>  
+  </div>
+ </div>

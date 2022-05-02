@@ -1,0 +1,26 @@
+<div class="container" style="color: white;">
+<div class="pt-5" style="position: relative; top: 40px; left: 50px;">
+	<h2> Напишіть ваш відгук </h2>
+	<%= form_for @comment do |f| %>
+		<% if @comment.errors.any? %>
+			<% @comment.errors.full_messages.each do |message| %>
+			<h4 class="alert-danger"> <%= message %> </h4>
+			<% end %>
+		<% end %>
+	<div>
+		<%= f.text_area :body, class: 'form-control', rows: "2" %>
+	</div>
+	<br>
+
+	<div>
+		<p>Ваша оцінка</p>
+		<%= f.select :rating, [*1..5], :prompt => 'Select' %>
+	</div>
+	<br>
+
+	<%= f.hidden_field :user_id %>
+	<%= f.hidden_field :product_id %>
+	<div><%= f.submit "Створити коментар", class: "btn btn-outline-light"%></div>
+<% end %>
+</div>
+</div>
